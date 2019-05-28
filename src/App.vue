@@ -1,20 +1,17 @@
 <template>
   <div id="app">
-    <h1>Hello App!</h1>
+    <b-container>
+    <h1>Blockchain Watcher</h1>
+    <b-alert show>Bootstrap Vue loaded</b-alert>
 
-      <!-- use router-link component for navigation. -->
-      <!-- specify the link by passing the `to` prop. -->
-      <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-      <router-link to="/blocks">Go to Blocks page</router-link>
-      <hr>
-      <router-link to="/">Go to Home page</router-link>
-    <!-- route outlet -->
-    <!-- component matched by the route will render here -->
     <router-view></router-view>
+    </b-container>
   </div>
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
   name: 'app',
@@ -32,5 +29,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+router-link {
+  margin: 20px;
 }
 </style>

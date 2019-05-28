@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HelloWorld from './components/HelloWorld'
 import Blocks from './components/Blocks'
+import BlockInfo from './components/BlockInfo'
 
 Vue.use(VueRouter)
 // 0. If using a module system (e.g. via vue-cli), import Vue and VueRouter
@@ -9,8 +10,8 @@ Vue.use(VueRouter)
 
 // 1. Define route components.
 // These can be imported from other files
-const Foo = { template: '<div><h1>This is foo</h1></div>' }
-const Bar = { template: '<div>bar</div>' }
+
+//const Test = { template: '<div>This is a test</div>' }
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -19,9 +20,8 @@ const Bar = { template: '<div>bar</div>' }
 // We'll talk about nested routes later.
 const routes = [
   { path: '/', component: HelloWorld },
-  { path: '/foo', component: Foo },
   { path: '/blocks', component: Blocks },
-  { path: '/bar', component: Bar }
+  { path: '/blocks/:id', component: BlockInfo },
 ]
 
 // 3. Create the router instance and pass the `routes` option
