@@ -36,7 +36,7 @@
 
         const latest = await web3.eth.getBlockNumber()
         const blockNumbers = latest < limit ?
-					[...Array(latest).keys()] :
+					[...Array(latest).keys()].reverse() :
 					[...Array(limit)].fill(latest).map((e,i) => e - i)
 
         const batch = new web3.eth.BatchRequest()
@@ -48,6 +48,7 @@
             web3.eth.getBlock.request(blockNumber,callback)
           )
         })
+        console.log('fetching')
 
         this.blocks = await batch.execute().then(function(x){
           return x.response.map(x => ({

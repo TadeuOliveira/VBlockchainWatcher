@@ -1,5 +1,3 @@
-# vuerouter
-
 ## Project setup
 ```
 npm install

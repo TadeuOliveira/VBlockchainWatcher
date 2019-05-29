@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-container>
-      <h1>Blockchain Watcher</h1>
+      <h1>V-Blockchain Watcher</h1>
       <router-view></router-view>
     </b-container>
   </div>

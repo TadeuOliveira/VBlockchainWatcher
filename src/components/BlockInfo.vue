@@ -2,11 +2,7 @@
 	<div class="blockinfo">
 			<h2>Details from Block {{ $route.params.id }}</h2>
 			<router-link to="/">Go back to listing</router-link>	
-			<hr>
-			<b-row>
-				<b-col v-for="row in block">{{ row }}</b-col>
-				<b-col v-for="row in block">{{ row }}</b-col>
-			</b-row>
+			<b-table bordered stacked :items="block" style="word-break: break-all;"></b-table>
 	</div>
 </template>
 
@@ -18,7 +14,13 @@
 	  name: 'BlockInfo',
 		data() {
 			return {
-				block: []
+				block: [],
+				fields: ['difficulty','hash'],
+				items: [
+          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        ]
 			}
 		},
 		props: {
@@ -29,9 +31,10 @@
 		},
 		methods: {
 			async getData() {
-				const web3 = new Web3('http://127.0.0.1:7545')
-				block = await web3.eth.getBlock(this.$route.params.id)
-				console.log(block)
+				const web3 = new Web3(Web3.givenProvider)
+				this.block = await web3.eth.getBlock(this.$route.params.id).then(
+					(x) => [x])
+				console.log(this.block)
 			}
 		}
 	}
