@@ -35,7 +35,10 @@
         web3.eth.net.getNetworkType().then(x => this.network = x)
 
         const latest = await web3.eth.getBlockNumber()
-        const blockNumbers = latest < limit ? [...Array(latest).keys()] : [...Array(limit).keys()].map((e) => latest - e)
+        const blockNumbers = latest < limit ?
+					[...Array(latest).keys()] :
+					[...Array(limit)].fill(latest).map((e,i) => e - i)
+
         const batch = new web3.eth.BatchRequest()
         var callback = (res, err) => { err ? err : res }
         var timestampToDate = (t) => { return dateFormat(new Date(t*1000),'dd/mm H:mm:ss') }
@@ -56,8 +59,8 @@
         })
       },
       async getNetwork() {
-      	console.log('this is network now: ' + this.network)
-      }
+				console.log('this is network now: ' + this.network)
+			}
     }
   }
 </script>
