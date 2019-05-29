@@ -1,24 +1,21 @@
 <template>
   <div id="app">
     <b-container>
-    <h1>Blockchain Watcher</h1>
-    <b-alert show>Bootstrap Vue loaded</b-alert>
-
-    <router-view></router-view>
+      <h1>Blockchain Watcher</h1>
+      <router-view></router-view>
     </b-container>
   </div>
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-export default {
-  name: 'app',
-  components: {
-
+  export default {
+    name: 'app',
+    components: {
+    }
   }
-}
 </script>
 
 <style>

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<b-alert v-if="hasProvider" show>Loaded data from the {{ network }} network</b-alert>
 		<b-table striped outlined hover :items="blocks">
 			<span slot="link" slot-scope="data">
 				<router-link :to="'/blocks/' + data.value"><b-button>See Details</b-button></router-link>
@@ -9,7 +10,7 @@
 </template>
 
 <script>
-	import Web3 from 'web3'
+  import Web3 from 'web3'
 	import dateFormat from 'dateformat'
 
   export default {
@@ -18,27 +19,26 @@
       return {
         // Note `isActive` is left out and will not appear in the rendered table
         blocks: [],
-        items: [
-          { number: 1, isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald'},
-          { number: 2, isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw'},
-          { number: 3, isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson'},
-          { number: 4, isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney'}
-        ]
+        hasProvider: false,
+        network: ''
       }
     },
     mounted() {
-    	this.testNetwork()
+			this.loadBlocks(5)
     },
     methods: {
-    	async testNetwork() {
-        const web3 = new Web3("http://127.0.0.1:7545")
+			async loadBlocks(limit) {
+
+        const web3 = new Web3(Web3.givenProvider)
+        if (!web3.givenProvider) return this.hasProvider = false
+        else this.hasProvider = true
+        web3.eth.net.getNetworkType().then(x => this.network = x)
 
         const latest = await web3.eth.getBlockNumber()
-        const blockNumbers = [...Array(latest).keys()]
+        const blockNumbers = latest < limit ? [...Array(latest).keys()] : [...Array(limit).keys()].map((e) => latest - e)
         const batch = new web3.eth.BatchRequest()
-
-        var callback = (err, res) => { err ? res : err }
-        var timestampToDate = (t) => { return dateFormat(new Date(t),'dd/mm H:mm:ss') }
+        var callback = (res, err) => { err ? err : res }
+        var timestampToDate = (t) => { return dateFormat(new Date(t*1000),'dd/mm H:mm:ss') }
 
         blockNumbers.forEach((blockNumber) => {
           batch.add(
@@ -54,13 +54,9 @@
             'mined at': timestampToDate(x.timestamp),
             'link': x.number }))
         })
-        //console.log(this.blocks)
-        /*const subscription = web3.eth.subscribe('logs', {
-          fromBlock: 0
-        }, function(error, result){
-          if (!error)
-            console.log(result);
-        })*/
+      },
+      async getNetwork() {
+      	console.log('this is network now: ' + this.network)
       }
     }
   }

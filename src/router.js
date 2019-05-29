@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HelloWorld from './components/HelloWorld'
 import Blocks from './components/Blocks'
 import BlockInfo from './components/BlockInfo'
 
@@ -19,8 +18,7 @@ Vue.use(VueRouter)
 // `Vue.extend()`, or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/', component: HelloWorld },
-  { path: '/blocks', component: Blocks },
+  { path: '/', component: Blocks },
   { path: '/blocks/:id', component: BlockInfo },
 ]
 
